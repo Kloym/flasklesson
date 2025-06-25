@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://docker:docker@localhost:5432/docker
+      PORT: 3000
+      SECRET_KEY: supersecretkey
+    ports:
+      - "3000:3000"

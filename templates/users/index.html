@@ -1,0 +1,30 @@
+{% extends "users/layout.html" %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+
+{% if messages %}
+  <div class="alert alert-success">
+    {% for category, message in messages %}
+      <div class="{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<form class="mb-3" action="{{ url_for('users_get') }}" method="get">
+    <div class="input-group">
+        <input type="search" class="form-control" name="term" value="{{ search }}" placeholder="Поиск...">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<a class="btn btn-success mb-3" href="{{ url_for('users_new') }}">Добавить пользователя</a>
+
+<ul class="list-group">
+    {% for user in users %}
+        <li class="list-group-item">
+            Имя: <a href="{{ url_for('users_show', id=user.id)}}">{{ user.name }}</a>,
+            Email: {{ user.email }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

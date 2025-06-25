@@ -1,0 +1,28 @@
+{% extends "users/layout.html" %}
+
+{% block content %}
+<h1 class="mb-4">Редактировать пользователя</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for _, error in errors.items() %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form action="{{ url_for('users_patch', id=user.id) }}" method="post" class="mb-3">
+    <div class="mb-3">
+        <label for="user-name" class="form-label">Имя:</label>
+        <input type="text" class="form-control" id="user-name" name="name" value="{{ user.name }}">
+    </div>
+    <div class="mb-3">
+        <label for="user-email" class="form-label">Email:</label>
+        <input type="text" class="form-control" id="user-email" name="email" value="{{ user.email }}">
+    </div>
+    <button type="submit" class="btn" style="background-color: #6f42c1; color: white;">Обновить</button>
+</form>
+<a href="{{ url_for('users_get') }}" class="btn btn-link">Назад к списку пользователей</a>
+{% endblock %}

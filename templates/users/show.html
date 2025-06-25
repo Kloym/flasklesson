@@ -1,0 +1,22 @@
+{% extends "users/layout.html" %}
+
+{% block content %}
+<h1 class="mb-4">Информация о пользователе</h1>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Имя: {{ user.name }}</h5>
+    <p class="card-text">Email: {{ user.email }}</p>
+  </div>
+</div>
+
+<a href="{{ url_for('users_edit', id=user.id) }}" class="btn btn-warning mb-2">Редактировать пользователя</a>
+
+<form action="{{ url_for('users_delete', id=user.id) }}" method="post"
+      onsubmit="return confirm('Вы уверены что хотите удалить пользователя? Это действие нельзя отменить.');"
+      class="d-inline">
+  <button type="submit" class="btn btn-danger mb-2">Удалить пользователя</button>
+</form>
+
+<p><a href="{{ url_for('users_get') }}" class="btn btn-link">Назад к списку пользователей</a></p>
+{% endblock %}
