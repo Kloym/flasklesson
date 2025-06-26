@@ -47,10 +47,11 @@ def users_get():
 
 @app.post("/users")
 def users_post():
-    conn, repo = get_repo()
+    repo, conn = get_repo()
     user_data = request.form.to_dict()
     errors = validate(user_data)
     if errors:
+        conn.close()
         return render_template(
             "users/new.html",
             user=user_data,
@@ -87,7 +88,7 @@ def users_new():
 
 @app.route("/users/<id>/edit")
 def users_edit(id):
-    conn, repo = get_repo()
+    repo, conn = get_repo()
     try:
         user = repo.find(id)
         errors = {}
@@ -103,7 +104,7 @@ def users_edit(id):
 
 @app.route("/users/<id>/patch", methods=["POST"])
 def users_patch(id):
-    conn, repo = get_repo()
+    repo, conn = get_repo()
     user = repo.find(id)
     data = request.form.to_dict()
 
@@ -138,7 +139,7 @@ def users_delete(id):
 
 @app.route("/users/<id>")
 def users_show(id):
-    conn, repo = get_repo()
+    repo, conn = get_repo()
     try:
         user = repo.find(id)
         return render_template(
